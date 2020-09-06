@@ -56,9 +56,9 @@ function LinkInput() {
         });
     }
 
-    const {status, data: items, error, isFetching, refetch} = usePosts();
+    const { data: items, refetch} = usePosts();
 
-    const {register, handleSubmit, watch, errors} = useForm();
+    const {register, handleSubmit, errors} = useForm();
 
     const [link, setLink] = useState('');
     const [lowestPrice, setLowestPrice] = useState<number>();
