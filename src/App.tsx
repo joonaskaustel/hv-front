@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import LinkInput from "./components/LinkInput";
 import MainMenu from "./components/MainMenu";
+import List from "./components/List";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
                         </Col>
                         <Col></Col>
                     </Row>
+                    <List/>
                 </Container>
             </React.Fragment>
     );
