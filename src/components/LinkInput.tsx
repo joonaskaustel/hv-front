@@ -10,6 +10,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import {isEmpty} from 'lodash'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -57,21 +58,21 @@ function LinkInput() {
 
     const { data: items, refetch} = usePosts();
 
-    const {register, handleSubmit, errors} = useForm();
+    const {register, handleSubmit, errors} = useForm({mode: "onChange"});
 
     const [link, setLink] = useState('');
     const [lowestPrice, setLowestPrice] = useState<number>();
 
     const checkPrice = (e: SyntheticEvent) => {
         // e.preventDefault();
-        //todo: validate link
 
         // feth page with that link
         fethHVPage(link);
     }
 
     const onInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        // set link
+        console.log('errors;: ', errors)
+        console.log('errors;: ', isEmpty(errors))
         setLink(trim(e.target.value));
     }
 
@@ -96,24 +97,24 @@ function LinkInput() {
             <div>
                 <form className={classes.root} noValidate autoComplete="off">
                     <TextField
-                        id="exampleRequired"
-                        name={"exampleRequired"}
+                        id="linkInput"
+                        name={"linkInput"}
                         label="Paste HV link"
                         variant="outlined"
                         onChange={onInput}
-                        inputRef={register({required: true})}
-                        error={errors.exampleRequired}
-                        helperText={errors.exampleRequired ? 'This field is required' : null}
+                        inputRef={register({required: true, pattern: /https:\/\/www.hinnavaatlus.ee\/[0-9]*\/[a-zA-Z-0-9]*\//i })}
+                        error={errors.linkInput}
+                        helperText={errors.linkInput ? 'This field is not valid HV link. Copy exact link: eg. https://www.hinnavaatlus.ee/1668162/apple-airpods-pro/' : null}
                     />
                     <br/>
-                    <Button variant="contained" color="primary" onClick={handleSubmit(checkPrice)}>
+                    <Button variant="contained" color="primary" onClick={handleSubmit(checkPrice)} disabled={link.length > 0 ? !isEmpty(errors) : true}>
                         Add item
                     </Button>
                 </form>
             </div>
 
+            {lowestPrice}
 
-            {lowestPrice ? `Madalaim hind ${lowestPrice}` : null}
             <div className={classes2.root}>
                 <List component="nav" aria-label="main mailbox folders">
                     {items && items.map((item, i) => {
