@@ -123,7 +123,7 @@ function LinkInput() {
                                 <ListItem>
                                     <ListItemText
                                         primary={item.urlLink}
-                                        secondary={item.price}
+                                        secondary={`${item.price}€`}
                                     />
                                 </ListItem>
                                 {items.length === i + 1 ? null : <Divider variant="fullWidth" component="li"/>}
