@@ -113,6 +113,8 @@ function LinkInput() {
                 </form>
             </div>
 
+            {lowestPrice}
+
             <div className={classes2.root}>
                 <List component="nav" aria-label="main mailbox folders">
                     {items && items.map((item, i) => {
