@@ -119,7 +119,7 @@ function LinkInput() {
                 <List component="nav" aria-label="main mailbox folders">
                     {items && items.map((item, i) => {
                         return (
-                            <React.Fragment>
+                            <React.Fragment key={item.id}>
                                 <ListItem>
                                     <ListItemText
                                         primary={item.urlLink}
