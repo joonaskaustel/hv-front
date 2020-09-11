@@ -102,7 +102,7 @@ function LinkInput() {
                         label="Paste HV link"
                         variant="outlined"
                         onChange={onInput}
-                        inputRef={register({required: true, pattern: /https:\/\/www.hinnavaatlus.ee\/[0-9]*\/[a-zA-Z-0-9]*\//i })}
+                        inputRef={register({required: true, pattern: /https:\/\/www.hinnavaatlus.ee\/[0-9]*\/[a-zA-Z-0-9]*\/$/i })}
                         error={errors.linkInput}
                         helperText={errors.linkInput ? 'This field is not valid HV link. Copy exact link: eg. https://www.hinnavaatlus.ee/1668162/apple-airpods-pro/' : null}
                     />
