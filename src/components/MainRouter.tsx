@@ -6,6 +6,9 @@ import Esimene from "../screens/Esimene";
 function MainRouter() {
     return (
             <Switch>
+                <Route path="/login/:type/:token">
+                    <Esimene />
+                </Route>
                 <Route path="/esimene">
                     <Esimene />
                 </Route>
