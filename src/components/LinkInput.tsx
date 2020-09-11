@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from 'react';
+import React, {SyntheticEvent, useEffect, useState} from 'react';
 import axios from 'axios';
 import {trim} from 'lodash'
 import {useQuery} from "react-query";
@@ -11,6 +11,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import {isEmpty} from 'lodash'
+import useInterval from '@use-it/interval';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -45,7 +46,13 @@ function LinkInput() {
     const classes = useStyles();
     const classes2 = useStyles2();
     const classes3 = useStyles3();
-    const apiUrl = process.env.REACT_APP_API_URL || '';
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+    useInterval(async () => {
+        // poll api
+        const req = await axios.get(`${apiUrl}/`);
+        console.log('req', req.data)
+    }, 1200000); // 20 minutes, heroku will sleep in 30
 
     const usePosts = () => {
         return useQuery("posts", async () => {
