@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useEffect, useState} from 'react';
+import React, {SyntheticEvent, useState} from 'react';
 import axios from 'axios';
 import {trim} from 'lodash'
 import {useQuery} from "react-query";
