@@ -57,7 +57,10 @@ function LinkInput() {
     const usePosts = () => {
         return useQuery("posts", async () => {
             const {data} = await axios.get(
-                `${apiUrl}/item`
+                `${apiUrl}/item`,
+                {headers: {
+                        'Authorization': `Bearer ${getHeaders()}`,
+                    },}
             );
             return data;
         });
@@ -85,6 +88,7 @@ function LinkInput() {
 
     const getHeaders = () => {
         const local = JSON.parse(localStorage?.getItem('user') || '');
+        console.log('token: ', local)
         if (local) {
             return local.token;
         }
