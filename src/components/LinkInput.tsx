@@ -57,7 +57,10 @@ function LinkInput() {
     const usePosts = () => {
         return useQuery("posts", async () => {
             const {data} = await axios.get(
-                `${apiUrl}/item`
+                `${apiUrl}/item`,
+                {headers: {
+                        'Authorization': `Bearer ${getHeaders()}`,
+                    },}
             );
             return data;
         });
@@ -83,11 +86,22 @@ function LinkInput() {
         setLink(trim(e.target.value));
     }
 
+    const getHeaders = () => {
+        const local = JSON.parse(localStorage?.getItem('user') || '');
+        console.log('token: ', local)
+        if (local) {
+            return local.token;
+        }
+        return ''
+    }
+
     const fethHVPage = async (reqUrl: string) => {
         // make request to api with url as queryparam pasted by user
         const response = await axios.post(`${apiUrl}/item`, {
             link: reqUrl,
-        });
+        }, { headers: {
+            'Authorization': `Bearer ${getHeaders()}`
+            } });
         console.log('done')
         refetch();
         setLowestPrice(response.data)

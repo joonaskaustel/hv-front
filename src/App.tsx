@@ -1,3 +1,4 @@
+import MainMenu from 'components/MainMenu';
 import React from 'react';
 import LinkInput from "./components/LinkInput";
 
@@ -5,7 +6,7 @@ function App() {
 
     return (
         <React.Fragment>
-            {/*<MainMenu/>*/}
+            <MainMenu/>
             <LinkInput/>
             {/*<AllItems/>*/}
         </React.Fragment>
