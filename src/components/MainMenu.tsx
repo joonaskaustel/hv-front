@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { useHistory } from "react-router-dom";
+import {useLocation} from "react-router";
 // import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,19 +24,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MainMenu() {
+    const apiUrl = process.env.REACT_APP_API_URL || '';
+
     const classes = useStyles();
     const history = useHistory();
+    const location = useLocation()
 
     const login = () => {
-        console.log('login')
-        console.log('history: ', history)
-        window.location.replace('http://localhost:5000/auth/google')
+        window.location.replace(`${apiUrl}/auth/google`)
     }
 
     const logout = () => {
         // clear token
         localStorage.clear()
-        history.push('/')
+        history.go(0)
     }
 
     return (
