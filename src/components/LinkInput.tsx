@@ -3,11 +3,13 @@ import axios from 'axios';
 import {isEmpty, trim} from 'lodash'
 import {useQuery} from "react-query";
 import {useForm} from "react-hook-form";
-import {createStyles, TextField, Theme, Typography} from "@material-ui/core";
+import {createStyles, ListItemProps, TextField, Theme, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import useInterval from '@use-it/interval';
@@ -40,6 +42,10 @@ const useStyles3 = makeStyles({
         // maxWidth: 500,
     },
 });
+
+function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
+    return <ListItem button component="a" {...props} />;
+}
 
 function LinkInput() {
     const classes = useStyles();
@@ -134,12 +140,15 @@ function LinkInput() {
                     {items && items.map((item, i) => {
                         return (
                             <React.Fragment key={item.id}>
-                                <ListItem>
+                                <ListItemLink href={item.urlLink}>
+                                    <ListItemAvatar>
+                                        <Avatar alt={item.name} src={item.imageUrl}/>
+                                    </ListItemAvatar>
                                     <ListItemText
-                                        primary={item.urlLink}
+                                        primary={item.name}
                                         secondary={`${item.price}€`}
                                     />
-                                </ListItem>
+                                </ListItemLink>
                                 {items.length === i + 1 ? null : <Divider variant="fullWidth" component="li"/>}
                             </React.Fragment>
                         )
