@@ -1,14 +1,10 @@
-import MainMenu from 'components/MainMenu';
+import MainFrame from 'components/MainFrame';
 import React from 'react';
-import LinkInput from "./components/LinkInput";
 
 function App() {
-
     return (
         <React.Fragment>
-            <MainMenu/>
-            <LinkInput/>
-            {/*<AllItems/>*/}
+            <MainFrame/>
         </React.Fragment>
     );
 }

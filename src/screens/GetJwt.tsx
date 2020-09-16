@@ -1,7 +1,7 @@
 import React from 'react';
 import {useHistory, useParams} from "react-router";
 
-function Esimene() {
+function GetJwt() {
     const params = useParams();
     console.log('params ', params)
 
@@ -18,4 +18,4 @@ function Esimene() {
     );
 }
 
-export default Esimene;
+export default GetJwt;
