@@ -9,9 +9,7 @@ function Esimene() {
 
     const history = useHistory();
 
-
     history.push("/");
-
 
     return (
         <React.Fragment>
