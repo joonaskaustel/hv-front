@@ -1,6 +1,6 @@
 import React, {SyntheticEvent, useState} from 'react';
 import axios from 'axios';
-import {trim} from 'lodash'
+import {isEmpty, trim} from 'lodash'
 import {useQuery} from "react-query";
 import {useForm} from "react-hook-form";
 import {createStyles, TextField, Theme, Typography} from "@material-ui/core";
@@ -10,7 +10,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import {isEmpty} from 'lodash'
 import useInterval from '@use-it/interval';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             flexWrap: 'wrap',
             '& > *': {
-                margin: theme.spacing(1),
+                margin: theme.spacing(0),
                 width: '100%',
             },
         },
@@ -71,7 +70,6 @@ function LinkInput() {
     const {register, handleSubmit, errors} = useForm({mode: "onChange"});
 
     const [link, setLink] = useState('');
-    const [lowestPrice, setLowestPrice] = useState<number>();
 
     const checkPrice = (e: SyntheticEvent) => {
         // e.preventDefault();
@@ -81,14 +79,13 @@ function LinkInput() {
     }
 
     const onInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        console.log('errors;: ', errors)
-        console.log('errors;: ', isEmpty(errors))
+
         setLink(trim(e.target.value));
     }
 
     const getHeaders = () => {
         const local = JSON.parse(localStorage?.getItem('user') || '');
-        console.log('token: ', local)
+
         if (local) {
             return local.token;
         }
@@ -97,14 +94,12 @@ function LinkInput() {
 
     const fethHVPage = async (reqUrl: string) => {
         // make request to api with url as queryparam pasted by user
-        const response = await axios.post(`${apiUrl}/item`, {
+        await axios.post(`${apiUrl}/item`, {
             link: reqUrl,
         }, { headers: {
             'Authorization': `Bearer ${getHeaders()}`
             } });
-        console.log('done')
         refetch();
-        setLowestPrice(response.data)
     };
 
     return (
@@ -133,8 +128,6 @@ function LinkInput() {
                     </Button>
                 </form>
             </div>
-
-            {lowestPrice}
 
             <div className={classes2.root}>
                 <List component="nav" aria-label="main mailbox folders">
