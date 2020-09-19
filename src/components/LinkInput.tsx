@@ -3,10 +3,9 @@ import axios from 'axios';
 import {isEmpty, trim} from 'lodash'
 import {useQuery} from "react-query";
 import {useForm} from "react-hook-form";
-import {createStyles, ListItemProps, TextField, Theme, Typography} from "@material-ui/core";
+import {createStyles, TextField, Theme, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import ListItem from "@material-ui/core/ListItem";
 import useInterval from '@use-it/interval';
 import {getHeaders} from "../helpers/getHeaders";
 
@@ -40,20 +39,6 @@ function LinkInput() {
         await req;
     }, 1200000); // 20 minutes, heroku will sleep in 30
 
-    const usePosts = () => {
-        return useQuery("posts", async () => {
-            const {data} = await axios.get(
-                `${apiUrl}/item`,
-                {headers: {
-                        'Authorization': `Bearer ${getHeaders()}`,
-                    },}
-            );
-            return data;
-        });
-    }
-
-    const { data: items, refetch} = usePosts();
-
     const {register, handleSubmit, errors} = useForm({mode: "onChange"});
 
     const [link, setLink] = useState('');
@@ -77,7 +62,6 @@ function LinkInput() {
         }, { headers: {
             'Authorization': `Bearer ${getHeaders()}`
             } });
-        refetch();
     };
 
     return (
