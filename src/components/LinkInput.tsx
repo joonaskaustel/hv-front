@@ -39,20 +39,6 @@ function LinkInput() {
         await req;
     }, 1200000); // 20 minutes, heroku will sleep in 30
 
-    const usePosts = () => {
-        return useQuery("posts", async () => {
-            const {data} = await axios.get(
-                `${apiUrl}/item`,
-                {headers: {
-                        'Authorization': `Bearer ${getHeaders()}`,
-                    },}
-            );
-            return data;
-        });
-    }
-
-    const { data: items, refetch} = usePosts();
-
     const {register, handleSubmit, errors} = useForm({mode: "onChange"});
 
     const [link, setLink] = useState('');
@@ -76,7 +62,6 @@ function LinkInput() {
         }, { headers: {
             'Authorization': `Bearer ${getHeaders()}`
             } });
-        refetch();
     };
 
     return (
