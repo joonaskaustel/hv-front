@@ -1,7 +1,6 @@
 import React, {SyntheticEvent, useState} from 'react';
 import axios from 'axios';
 import {isEmpty, trim} from 'lodash'
-import {useQuery} from "react-query";
 import {useForm} from "react-hook-form";
 import {createStyles, TextField, Theme, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
