@@ -22,7 +22,7 @@ function Login() {
     return (
         <div>
             <div className={classes.root}>
-                <Alert severity="warning">This is a warning message!</Alert>
+                <Alert severity="warning">Log in to continue!</Alert>
             </div>
         </div>
     );

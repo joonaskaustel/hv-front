@@ -6,13 +6,9 @@ import {useForm} from "react-hook-form";
 import {createStyles, ListItemProps, TextField, Theme, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 import useInterval from '@use-it/interval';
+import {getHeaders} from "../helpers/getHeaders";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,16 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const useStyles2 = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-            // maxWidth: '100%',
-            backgroundColor: theme.palette.background.paper,
-        },
-    }),
-);
-
 const useStyles3 = makeStyles({
     root: {
         width: '100%',
@@ -43,20 +29,15 @@ const useStyles3 = makeStyles({
     },
 });
 
-function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
-    return <ListItem button component="a" {...props} />;
-}
-
 function LinkInput() {
     const classes = useStyles();
-    const classes2 = useStyles2();
     const classes3 = useStyles3();
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
     useInterval(async () => {
         // poll api
         const req = await axios.get(`${apiUrl}/`);
-        console.log('req', req.data)
+        await req;
     }, 1200000); // 20 minutes, heroku will sleep in 30
 
     const usePosts = () => {
@@ -87,15 +68,6 @@ function LinkInput() {
     const onInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
 
         setLink(trim(e.target.value));
-    }
-
-    const getHeaders = () => {
-        const local = JSON.parse(localStorage?.getItem('user') || '');
-
-        if (local) {
-            return local.token;
-        }
-        return ''
     }
 
     const fethHVPage = async (reqUrl: string) => {
@@ -135,27 +107,6 @@ function LinkInput() {
                 </form>
             </div>
 
-            <div className={classes2.root}>
-                <List component="nav" aria-label="main mailbox folders">
-                    {items && items.map((item, i) => {
-                        return (
-                            <React.Fragment key={item.id}>
-                                <ListItemLink href={item.urlLink}>
-                                    <ListItemAvatar>
-                                        <Avatar alt={item.name} src={item.imageUrl}/>
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        primary={item.name}
-                                        secondary={`${item.price}€`}
-                                    />
-                                </ListItemLink>
-                                {items.length === i + 1 ? null : <Divider variant="fullWidth" component="li"/>}
-                            </React.Fragment>
-                        )
-                    })}
-                </List>
-                <Divider/>
-            </div>
         </React.Fragment>
     );
 }
