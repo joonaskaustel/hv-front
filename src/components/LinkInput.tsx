@@ -29,10 +29,6 @@ const useStyles3 = makeStyles({
     },
 });
 
-function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
-    return <ListItem button component="a" {...props} />;
-}
-
 function LinkInput() {
     const classes = useStyles();
     const classes3 = useStyles3();
@@ -41,6 +37,7 @@ function LinkInput() {
     useInterval(async () => {
         // poll api
         const req = await axios.get(`${apiUrl}/`);
+        await req;
     }, 1200000); // 20 minutes, heroku will sleep in 30
 
     const usePosts = () => {

@@ -41,7 +41,7 @@ function MainFrame() {
         };
 
         fetchData();
-    }, []);
+    });
 
 
     const classes = useStyles();

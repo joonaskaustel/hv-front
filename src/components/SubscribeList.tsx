@@ -13,7 +13,6 @@ import {getHeaders} from "../helpers/getHeaders";
 import IconButton from "@material-ui/core/IconButton";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from '@material-ui/icons/Delete';
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
