@@ -3,6 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import Teine from 'screens/Teine';
 import LinkInput from "./LinkInput";
 import Login from "../screens/Login";
+import SubscribeList from "./SubscribeList";
 
 function MainRouter() {
 
@@ -15,6 +16,7 @@ function MainRouter() {
             <Switch>
                 <Route path="/">
                     <LinkInput />
+                    <SubscribeList/>
                 </Route>
                 <Route path="/teine">
                     <Teine />

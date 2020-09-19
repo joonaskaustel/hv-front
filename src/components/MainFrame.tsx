@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, useHistory} from "react-router-dom";
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AuthRouter from "./AuthRouter";
+import axios from "axios";
+import {getHeaders} from "../helpers/getHeaders";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +24,25 @@ const useStyles = makeStyles((theme) => ({
 
 function MainFrame() {
     const apiUrl = process.env.REACT_APP_API_URL || '';
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios(
+                `${apiUrl}/auth/login`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${getHeaders()}`,
+                    }
+                }
+            );
+            setIsLoggedIn(result.status === 200);
+        };
+
+        fetchData();
+    }, []);
+
 
     const classes = useStyles();
     const history = useHistory();
@@ -46,8 +67,11 @@ function MainFrame() {
                         <Typography variant="h6" className={classes.title}>
                             Header
                         </Typography>
-                        <Button color="inherit" onClick={login}>Login</Button>
-                        <Button color="inherit" onClick={logout}>Log out</Button>
+                        {
+                            isLoggedIn
+                                ? <Button color="inherit" onClick={logout}>Log out</Button>
+                                : <Button color="inherit" onClick={login}>Login</Button>
+                        }
                     </Toolbar>
                 </AppBar>
             </div>
